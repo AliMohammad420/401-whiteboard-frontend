@@ -1,7 +1,7 @@
 import axios from "axios";
 import {useEffect} from "react";
 import {useState} from "react";
-import AddPostForm from "./Add-post-form";
+import AddCommentForm from "./Add-comment-form";
 import React from 'react';
 
 
@@ -12,26 +12,33 @@ function Post (props) {
         setPost(dataPost.data.post);
     };
 
-    const handleDelete = async ( id ) => {
-        await axios.delete( `https://post-401.herokuapp.com/post/${id}` );
-        getData();
-    };
-
     useEffect( () => {
         getData();
     }, [props.rerender]);
     return (
-        <div>
-
-            <AddPostForm getPosts={getData} updatePosts={handleDelete} />
-            <div className='grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-4 font-mono gap-x-5 gap-y-8'>
-
-                {post && post.map((post) => {
-                    return <post post={post} getPosts={getData} />
-                })}
-            </div>
-        </div>
+        <>
+            {post && post.map((post, idx) => {
+                return (
+                    <div className="post-class" style={{ justifyContent: 'center', margin: '1rem' }} key={idx}>
+                     {post.Comments &&
+                     <h2>Comments</h2>
+                        }
+                    {post.Comments && post.Comments.map((comment, idx) => {
+                     return (
+                        <div className="card" style={{ justifyContent: 'center', margin: '1rem' }} key={idx}>
+                            <div className="card-body">
+                               <p className="card-text">{comment.content}</p>
+                                </div>
+                        </div>
+                                );
+                            }
+                            )}
+                            <AddCommentForm postID={post.id} getPost={getData} />
+                        </div>
+                );
+            }
+            )}
+        </>
     );
-
 }
 export default Post;
