@@ -23,7 +23,7 @@ function AddPostForm (props) {
                     </div>
                     <div className="form-control">
                         <label>Content</label>
-                        <textarea placeholder="Add Post" name="content"></textarea>
+                        <textarea placeholder="Add Content" name="content"></textarea>
                     </div>
                     <div className="form-control">
                         <input type="submit" />
