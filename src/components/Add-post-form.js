@@ -1,16 +1,17 @@
 import axios from "axios";
 import React from "react";
 
+
 function AddPostForm (props) {
     const handlePost = async (e) => {
         e.preventDefault();
         const post = {
             'title': e.target.title.value,
             'content': e.target.content.value
-        };
-        await axios.post(`https://post-401.herokuapp.com/post`, post).then(() => {
+        }
+        await axios.post(`https://post-401.herokuapp.com/post`, post).then( () => {
             props.getData();
-        });
+        } );
     };
     return (
         <>
@@ -23,7 +24,7 @@ function AddPostForm (props) {
                     </div>
                     <div className="form-control">
                         <label>Content</label>
-                        <textarea placeholder="Add Post" name="content"></textarea>
+                        <textarea placeholder="Add Content" name="content"></textarea>
                     </div>
                     <div className="form-control">
                         <input type="submit" />
