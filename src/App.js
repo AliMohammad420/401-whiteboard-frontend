@@ -11,6 +11,7 @@ function App() {
     <div className="App">
           <AddPostForm getData={handleRerender}/>
          <Post rerender={rerender} />
+         
     </div>
   );
 }
