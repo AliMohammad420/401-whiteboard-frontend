@@ -1,11 +1,16 @@
 import axios from "axios";
 import base64 from "base-64";
+import { cookies } from "react-cookie";
+import { useState } from "react";
 import "../App.css";
 
 
 
-function Signin() {
-    const handleSubmit = async (e) => {
+function Signin(props) {
+
+    const [isValid, setIsValid] = useState(false);
+
+    const handleLogin = async (e) => {
         e.preventDefault();
         const user = {
             'username': e.target.username.value,
@@ -19,6 +24,12 @@ function Signin() {
                 }
             }
         ).then ( (res) => {
+            console.log(res.data.user);
+            cookies.save('token', res.data.token);
+            cookies.save('username', user.username);
+            cookies.save('userID', res.data.userID);
+            props.isValid(true);
+
             if (res.status === 200) {
                 window.location.href = '/posts';
             }
@@ -31,7 +42,7 @@ function Signin() {
     return ( 
         <>
         <div className="signin">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleLogin}>
 
                 <div className="form-group">
                     <label htmlFor="username">Username</label>

@@ -2,11 +2,15 @@ import axios from "axios";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import "../App.css";
+import cookies from 'react-cookies';
+import React, { useState } from 'react';
 
 
 
+function Signup(props) {
 
-function Signup() {
+    const [isValid, setIsValid] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (e.target.password.value !== e.target.confirmPassword.value) {
@@ -20,6 +24,13 @@ function Signup() {
         };
         await axios.post(
             `${process.env.REACT_APP_HEROKU_URL}/signup`,user).then( (res) => {
+
+                console.log(res.data.user);
+                cookies.save('token', res.data.token);
+                cookies.save('username', user.username);
+                cookies.save('userID', res.data.userID);
+                props.isValid(true);
+
             if (res.status === 200) {
                 window.location.href = '/posts';
             } 

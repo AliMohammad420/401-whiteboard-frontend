@@ -2,14 +2,23 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import AddCommentForm from "./Add-comment-form";
+import AddPostForm from "./Add-post-form";
 import React from 'react';
+import cookies from 'react-cookies';
 
 function Post ( props ) {
     const [ post, setPost ] = useState( [] );
-    const getData = async () => {
-        const response = await axios.get( `${process.env.REACT_APP_HEROKU_URL}/post` );
-        setPost( response.data.posts );
-    };
+
+    const getData  = async () => {
+    const response = await axios.get(`${process.env.REACT_APP_HEROKU_URL}/post`, {
+      headers: {
+        Authorization: `Bearer ${cookies.load("token")}`,
+      },
+    });
+
+    setPost(response.data.posts);
+  };
+    
 
 
     const handleDelete = async ( id ) => {
@@ -25,6 +34,8 @@ function Post ( props ) {
         <>
             {post && post.map( ( post, idx ) => {
                 return (
+                    <>
+                    <AddPostForm getPost={getData} />
                     <div className="text">
                          <div key={idx}>
                         <div className="card-body">
@@ -50,9 +61,16 @@ function Post ( props ) {
                                 handleDelete( post.id );
                             }}>delete post</button>
                         </div>
+                        <button className="signout" onClick={() => {
+                            cookies.remove("token");
+                            cookies.remove("username");
+                            cookies.remove("userID");
+                            window.location.href = "/";
+                        }}>Sign Out</button>
 
                         </div>
                     </div>
+                    </>
                 );
             }
             )}
