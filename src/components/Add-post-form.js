@@ -7,8 +7,8 @@ function addPostForm ( props ) {
         e.preventDefault();
         const post = {
             'title': e.target.title.value,
-            'content': e.target.content.value
-
+            'content': e.target.content.value,
+            'userId': props.userId
         };
         await axios.post(
             `${process.env.REACT_APP_HEROKU_URL}/post`,post).then( () => {
