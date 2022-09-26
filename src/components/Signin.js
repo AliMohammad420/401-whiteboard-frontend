@@ -1,15 +1,11 @@
 import axios from "axios";
 import base64 from "base-64";
 import { cookies } from "react-cookie";
-import { useState } from "react";
 import "../App.css";
 
 
 
 function Signin(props) {
-
-    const [isValid, setIsValid] = useState(false);
-
     const handleLogin = async (e) => {
         e.preventDefault();
         const user = {
@@ -17,6 +13,7 @@ function Signin(props) {
             'password': e.target.password.value,
         };
         const encoded = base64.encode(`${user.username}:${user.password}`);
+        console.log(encoded, "encodeed LINE 16");
         await axios.post(`${process.env.REACT_APP_HEROKU_URL}/signin`,{},
             {
                 headers: {
@@ -24,16 +21,18 @@ function Signin(props) {
                 }
             }
         ).then ( (res) => {
-            console.log(res.data.user);
+            console.log(res, "res LINE 24");
             cookies.save('token', res.data.token);
             cookies.save('username', user.username);
             cookies.save('userID', res.data.userID);
-            props.isValid(true);
+            cookies.save('role', res.data.role);
 
             if (res.status === 200) {
                 window.location.href = '/posts';
             }
-        } ).catch( (err) => {
+            
+          }).catch(err => {
+            console.log(err);
             alert('Invalid Login');
         }
         );
@@ -58,7 +57,7 @@ function Signin(props) {
                     <input type="email" className="form-control" id="email" name="email" />
                 </div>
                 <p>Don't have an account? <a href="/signup">Sign up now</a></p>
-                <button type="submit" >Submit</button>
+                <button type="submit" >SignIn</button>
             </form>
             </div>
         </>

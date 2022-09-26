@@ -8,13 +8,17 @@ function AddCommentForm ( props ) {
         e.preventDefault();
         const comment = {
             'content': e.target.content.value,
-            'postId': props.postId
+            'post': props.postId,
+            'user': cookies.load( 'user' ).id
+            
         };
+        
         await axios.post(
             `${process.env.REACT_APP_HEROKU_URL}/comment/${props.postId}`,comment).then( () => {
             props.getData();
         } );
     };
+    
     return (
         <>
             <div className="add-comment-form">
