@@ -8,24 +8,44 @@ import cookies from 'react-cookies';
 
 function Post ( props ) {
     const [ post, setPost ] = useState( [] );
-
-    const getData  = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_HEROKU_URL}/post`, {
-      headers: {
-        Authorization: `Bearer ${cookies.load("token")}`,
-      },
-    });
-
-    setPost(response.data.posts);
-  };
-    
-
+    const [edit,setEdit] = useState(false)
+    const getData  = async () => { 
+        await axios.get(`${process.env.REACT_APP_HEROKU_URL}/post` , {
+        headers: {
+            'Authorization': `Bearer ${cookies.load('token')}`
+        }    
+        })
+        .then( ( res ) => {
+            setPost( res.data );
+        } )
+        .catch( ( err ) => {
+            console.log( err );
+        } )
+    };
 
     const handleDelete = async ( id ) => {
         await axios.delete( `${process.env.REACT_APP_HEROKU_URL}/post/${id}` );
         getData();
     };
 
+
+    const handleEdit = async (e) => {
+        e.preventDefault();
+        const post = {
+            'title': e.target.title.value,
+            'content': e.target.content.value,
+            'userID': cookies.load('user').id
+        };
+        await axios.put(`${process.env.REACT_APP_HEROKU_URL}/post/${props.match.params.id}`, post, {
+            headers: {
+                'Authorization': `Bearer ${cookies.load('token')}`
+            }
+        })
+        .then(() => {
+            getData();
+        })
+        setEdit(false)
+    }
 
     useEffect( () => {
         getData();
@@ -42,6 +62,16 @@ function Post ( props ) {
                             <h1 className="card-title">{post.title}</h1>
                             <p className="card-text">{post.content}</p>
                     </div>
+                    {cookies.load('role') === 'admin' && <button onClick={() => handleDelete(post.id)}>Delete</button>}
+<                   button onClick={() => {
+                        setEdit(true)
+                    }}>Edit</button>
+                    {edit && <form onSubmit={handleEdit}>
+                        <input type="text" name="title" defaultValue={post.title} />
+                        <input type="text" name="content" defaultValue={post.content} />
+                        <button>Submit</button>
+                    </form>}
+                    
                         <div>
                             {post.Comments && <h2>Comments</h2>}
                             {post.Comments && post.Comments.map( ( comment, idx ) => {
@@ -65,8 +95,9 @@ function Post ( props ) {
                             cookies.remove("token");
                             cookies.remove("username");
                             cookies.remove("userID");
-                            window.location.href = "/";
-                        }}>Sign Out</button>
+                            cookies.remove("role");
+                            window.location.replace = "/";
+                        }}>Sign Out {cookies.load('username')}</button>
 
                         </div>
                     </div>
