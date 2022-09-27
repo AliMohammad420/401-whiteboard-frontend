@@ -4,7 +4,7 @@ import  cookies  from "react-cookies";
 
 
 function AddCommentForm ( props ) {
-    const handleSubmit = async ( e ) => {
+    const handleComment = async ( e ) => {
         e.preventDefault();
         const comment = {
             'content': e.target.content.value,
@@ -20,7 +20,7 @@ function AddCommentForm ( props ) {
         <>
             <div className="add-comment-form">
                 <h2>Add Comment</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleComment}>
                     <div className="form-control">
                         <textarea placeholder="Add Comment content" name="content"></textarea>
                     </div>

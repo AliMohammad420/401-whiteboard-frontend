@@ -2,7 +2,7 @@ import axios from "axios";
 import React from "react";
 import  cookies  from "react-cookies";
 
-function AddPostForm ( props ) {
+function addPostForm  ( props ) {
     const handleSubmit = async ( e ) => {
        e.preventDefault();
         const post = {
@@ -26,15 +26,15 @@ function AddPostForm ( props ) {
             <div className="add-post-form">
                 <h2>Add Post</h2>
                 <form onSubmit={handleSubmit}>
-                    <div className="form-control">
+                    <div className="form-style">
                         <label>Title</label>
-                        <input type="text" placeholder="Add Title" name="title" />
+                        <input type="text" placeholder="Add your title" name="title" />
                     </div>
-                    <div className="form-control">
+                    <div className="form-style">
                         <label>Content</label>
-                        <textarea placeholder="Add Post content" name="content"></textarea>
+                        <textarea placeholder="Add some content" name="content"></textarea>
                     </div>
-                    <div className="form-control">
+                    <div className="form-style">
                         <input type="submit" />
                     </div>
                 </form>
@@ -50,4 +50,4 @@ function AddPostForm ( props ) {
     );
 }
 
-export default AddPostForm;
+export default addPostForm; 
