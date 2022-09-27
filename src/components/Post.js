@@ -24,8 +24,8 @@ function Post ( props ) {
     };
 
     const handleDelete = async ( id ) => {
-        let confirm = prompt("Please type DELETE");
-        if(confirm === "DELETE"){
+        let confirm = prompt("Please type delete to confirm");
+        if(confirm === "delete"){
             await axios.delete( `${process.env.REACT_APP_HEROKU_URL}/post/${id}` , {
                 headers: {
                     'Authorization': `Bearer ${cookies.load('token')}`

@@ -42,10 +42,7 @@ function Signin() {
                     <label htmlFor="password">Password</label>
                     <input type="password" name="password" id="password" />
                 </div>
-                    <div className="form-group">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" className="form-control" id="email" name="email" />
-                </div>
+        
                 <p>Don't have an account? <a href="/signup">Sign up now</a></p>
                 <button type="submit" >SignIn</button>
             </form>
