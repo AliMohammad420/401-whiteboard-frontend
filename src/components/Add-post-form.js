@@ -1,28 +1,25 @@
 import axios from "axios";
 import React from "react";
-import cookies from "react-cookies";
+import  cookies  from "react-cookies";
 
-function addPostForm ( props ) {
+function addPostForm  ( props ) {
     const handleSubmit = async ( e ) => {
-        e.preventDefault();
+       e.preventDefault();
         const post = {
             'title': e.target.title.value,
             'content': e.target.content.value,
-            'userID': cookies.load( 'user' ).id
-
+            'userID': cookies.load( 'user_id' )
         };
         await axios.post(
-            `${process.env.REACT_APP_HEROKU_URL}/post`,post,{
+            `${process.env.REACT_APP_HEROKU_URL}/post`,
+            post, {
                 headers: {
-                    'Authorization': `Bearer ${cookies.load( 'token' )}`
-
+                    'Authorization': `bearer ${cookies.load('token')}`
+                }
             }
-        }
-            
-            ).then( () => {
+        ).then( () => {
             props.getData();
         } );
-
     };
     return (
         <>
@@ -30,17 +27,16 @@ function addPostForm ( props ) {
                 <h2>Add Post</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-style">
-                        <label >Title</label>
+                        <label>Title</label>
                         <input type="text" placeholder="Add your title" name="title" />
                     </div>
                     <div className="form-style">
                         <label>Content</label>
                         <textarea placeholder="Add some content" name="content"></textarea>
                     </div>
-                    <div className="form-style1">
-                        <button>Submit</button>
-                        </div>
-                
+                    <div className="form-style">
+                        <input type="submit" />
+                    </div>
                 </form>
                 <button className="signout" onClick={() => {
                     cookies.remove('token');
@@ -54,4 +50,4 @@ function addPostForm ( props ) {
     );
 }
 
-export default addPostForm;
+export default addPostForm; 
