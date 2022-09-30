@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import  cookies  from "react-cookies";
+import cookies from "react-cookies";
 
 function addPostForm  ( props ) {
     const handleSubmit = async ( e ) => {
@@ -8,19 +8,23 @@ function addPostForm  ( props ) {
         const post = {
             'title': e.target.title.value,
             'content': e.target.content.value,
-            'userID': cookies.load( 'user_id' )
+            'userID': cookies.load( 'userID' )
         };
         await axios.post(
-            `${process.env.REACT_APP_HEROKU_URL}/signin`,
-            post, {
+            `${process.env.REACT_APP_HEROKU_URL}/post`,post, {
                 headers: {
-                    'Authorization': `bearer ${cookies.load('token')}`
-                }
+                    Authorization: `Bearer ${cookies.load("token")}`,
+                  },
             }
         ).then( () => {
+            console.log( "post added" );
             props.getData();
-        } );
+        }
+        );
+                    
     };
+              
+
     return (
         <>
             <div className="add-post-form">

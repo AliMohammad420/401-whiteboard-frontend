@@ -56,11 +56,10 @@ function Post ( props ) {
         getData();
     }, [ props.rerender ] );
     return (
-        <>  {!post && <h1>No posts right now</h1>}
+        <>  
             {post && post.map( ( post, idx ) => {
                 return (
                     <div className="post-class" style={{ justifyContent: 'center', margin: '1rem' }} key={idx}>
-                        <img src={post.img} alt={post.title} style={{ width: "15rem" }} />
                         <div className="card-body">
                             <h1 className="card-title">{post.title}</h1>
                             <h3> post by {post.user.username}</h3>
@@ -86,7 +85,6 @@ function Post ( props ) {
                         </div>
                     : null}
                         <div>
-                            {!post.comments && <h1>No comments right now</h1>}
                             {post.comments &&
                                 <h2>Comments</h2>
                             }
