@@ -1,6 +1,8 @@
 import axios from "axios";
 import base64 from "base-64";
 import  cookies  from "react-cookies";
+import swal from 'sweetalert';
+
 
 function Signin() {
     const handleLogin = async (e) => {
@@ -23,11 +25,10 @@ function Signin() {
                 cookies.save('token', res.data.token);
                 cookies.save('user_id', res.data.user.id);
                 cookies.save('username', res.data.user.username);
-                cookies.save('role', res.data.user.role);
                 window.location.href = '/posts'
             }
         } ).catch( (err) => {
-            alert('Invalid Login');
+            swal('Invalid Login');
         }
         );
     };
