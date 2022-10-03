@@ -1,5 +1,7 @@
 import axios from "axios";
 import cookies from "react-cookies";
+import swal from 'sweetalert';
+
 
 function Signup () {
     const handleSignup = async ( e ) => {
@@ -22,7 +24,7 @@ function Signup () {
                     window.location.href = '/posts';
                 }
             } ).catch( ( err ) => {
-                alert( 'Username or email already exists' );
+                swal( 'Username or email already exists' );
             } );
         
     };

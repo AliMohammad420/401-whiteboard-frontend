@@ -62,7 +62,7 @@ function Post ( props ) {
                     <div className="post-class" style={{ justifyContent: 'center', margin: '1rem' }} key={idx}>
                         <div className="card-body">
                             <h1 className="card-title">{post.title}</h1>
-                            <h3> post by {post.user.username}</h3>
+                            <h3> Post by {post.user.username}</h3>
                             <p className="card-text">{post.content}</p>
                         </div>
                         {cookies.load('role')=== 'admin' ? 
@@ -101,13 +101,13 @@ function Post ( props ) {
                             )}
                             <AddCommentForm postId={post.id} getData={getData} />
                         </div>
-                        <button className="signout" onClick={() => {
+                       {/*  <button className="signout" onClick={() => {
                             cookies.remove( 'token' );
                             cookies.remove( 'user_id' );
                             cookies.remove('username');
                             cookies.remove('role');
                             window.location.href = '/'
-                        }}>Sign out {cookies.load('username')}</button>
+                        }}>Sign out {cookies.load('username')}</button> */}
                     </div>
                 );
             }
