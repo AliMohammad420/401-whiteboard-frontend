@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Signup from './components/Signup';
 import Signin from './components/Signin';
 import cookies from 'react-cookies';
-
 const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
 root.render(
   <BrowserRouter>

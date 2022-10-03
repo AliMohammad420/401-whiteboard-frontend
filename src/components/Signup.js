@@ -1,32 +1,33 @@
 import axios from "axios";
 import cookies from "react-cookies";
 import swal from 'sweetalert';
+import { useLoginContext } from '../context/loginContext';
 
 
-function Signup () {
-    const handleSignup = async ( e ) => {
-        e.preventDefault(); 
-            const user = {
-                'username': e.target.username.value,
-                'password': e.target.password.value,
-                'email': e.target.email.value,
-                'role': e.target.role.value
-            };
-            await axios.post(
-                `${process.env.REACT_APP_HEROKU_URL}/signup`,
-                user
-            ).then( ( res ) => {
-                if ( res.status === 200 ) {
-                    cookies.save( 'token', res.data.token );
-                    cookies.save( 'user_id', res.data.user.id );
-                    cookies.save( 'username', res.data.user.username );
-                    cookies.save( 'role', res.data.user.role );
-                    window.location.href = '/posts';
-                }
-            } ).catch( ( err ) => {
-                swal( 'Username or email already exists' );
-            } );
-        
+function Signup() {
+    const context = useLoginContext();
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        await axios.post(`${process.env.REACT_APP_HEROKU_URL}/signup`, {
+            username: e.target.username.value,
+            password: e.target.password.value,
+            email: e.target.email.value,
+            role: e.target.role.value
+        }).then((res) => {
+            if (res.status === 200) {
+                cookies.save('token', res.data.token);
+                cookies.save('user_id', res.data.user.id);
+                cookies.save('username', res.data.user.username);
+                cookies.save('role', res.data.user.role);
+                /* context.setToken(res.data.token);
+                context.setUser(res.data.user);
+                context.setLoggedIn(true); */
+                swal('Welcome', `Welcome ${res.data.user.username}`, 'success');
+            }
+            window.location.href = '/posts';
+        }).catch((err) => {
+            swal('Error', `${err}`, 'error');
+        });
     };
     return (
         <div className="signup">
