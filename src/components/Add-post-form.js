@@ -2,34 +2,33 @@ import axios from "axios";
 import React from "react";
 import cookies from "react-cookies";
 
-function addPostForm  ( props ) {
-    const handleSubmit = async ( e ) => {
-       e.preventDefault();
+function addPostForm (props){
+    const handleAddPost = async (e) => {
+        e.preventDefault();
         const post = {
             'title': e.target.title.value,
             'content': e.target.content.value,
-            'userID': cookies.load( 'userID' )
+            'userID': cookies.load( 'user_id' ),
         };
         await axios.post(
-            `${process.env.REACT_APP_HEROKU_URL}/post`,post, {
+            `${process.env.REACT_APP_HEROKU_URL}/post`,
+            post, {
                 headers: {
-                    Authorization: `Bearer ${cookies.load("token")}`,
-                  },
+                    'Authorization': `bearer ${cookies.load('token')}`
+                }
             }
         ).then( () => {
-            console.log( "post added" );
             props.getData();
-        }
-        );
-                    
+        } );
     };
+
               
 
     return (
         <>
             <div className="add-post-form">
                 <h2>Add Post</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleAddPost}>
                     <div className="form-style">
                         <label>Title</label>
                         <input type="text" placeholder="Add your title" name="title" />
