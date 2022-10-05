@@ -4,10 +4,10 @@ import React from 'react';
 import cookies from 'react-cookies';
 import { useAuth } from "./AuthContext";
 
-const UserDataContext = createContext();
-export const useUserData = () => useContext( UserDataContext );
+const PostContext = createContext();
+export const useUserData = () => useContext( PostContext );
 
-const UserDataContextProvider = ( props ) => {
+const PostContextProvider = ( props ) => {
     const [ post, setPost ] = useState( [] );
     const [ edit, setEdit ] = useState( false );
     const { user } = useAuth();
@@ -96,10 +96,10 @@ const UserDataContextProvider = ( props ) => {
     };
 
     return (
-        <UserDataContext.Provider value={state}>
+        <PostContext.Provider value={state}>
             {props.children}
-        </UserDataContext.Provider>
+        </PostContext.Provider>
     );
 };
 
-export default UserDataContextProvider;
+export default PostContextProvider;
