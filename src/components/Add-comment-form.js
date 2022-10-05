@@ -1,33 +1,27 @@
-import axios from "axios";
 import React from 'react';
-import  cookies  from "react-cookies";
+import { useAuth } from "../Context/AuthContext";
+import { useUserData } from "../Context/PostContext";
 
 
 function AddCommentForm ( props ) {
-    const handleComment = async ( e ) => {
-        e.preventDefault();
-        const comment = {
-            'content': e.target.content.value,
-        };
-        await axios.post(
-            `${process.env.REACT_APP_HEROKU_URL}/comment/${props.postId}/${cookies.load( 'user_id' )}`,
-            comment
-        ).then( () => {
-            props.getData();
-        } );
-    };
+    const { user, clearUser, setIsAuth } = useAuth();
+    const { addComment } = useUserData();
     return (
         <>
             <div className="add-comment-form">
                 <h2>Add Comment</h2>
-                <form onSubmit={handleComment}>
+                <form onSubmit={(e, postId) => addComment(e, props.postId)}>
                     <div className="form-control">
-                        <textarea placeholder="Add Comment content" name="content"></textarea>
+                    <textarea placeholder="Add Comment content" name="content"></textarea>
                     </div>
                     <div className="form-control">
                         <input type="submit" />
                     </div>
                 </form>
+                <button className="signout" onClick={() => {
+                            clearUser();
+                            setIsAuth( false );
+                        }}>Sign out {user.username}</button>
             </div>
         </>
     );
