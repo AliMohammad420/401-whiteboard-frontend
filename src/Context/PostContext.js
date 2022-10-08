@@ -3,6 +3,7 @@ import axios from "axios";
 import React from 'react';
 import cookies from 'react-cookies';
 import { useAuth } from "./AuthContext";
+import swal from "sweetalert";
 
 const PostContext = createContext();
 export const useUserData = () => useContext( PostContext );
@@ -14,60 +15,87 @@ const PostContextProvider = ( props ) => {
 
 
     const fetchData = async () => {
-        try {
-            const response = await axios.get( `${process.env.REACT_APP_HEROKU_URL}/post` );
-            setPost( response.data );
-        } catch ( error ) {
-            console.log( error );
-        }
-    };
-
+            await axios.get( `${process.env.REACT_APP_HEROKU_URL}/post`, {
+                headers: {
+                    Authorization: `Bearer ${cookies.load('token')}`
+                }
+            })
+                .then( ( res ) => {
+                    setPost( res.data );
+                } ).catch( ( err ) => {
+                    console.log( err );
+                } );
+    
+        };
 
     
     const addPost = async ( e ) => {
         e.preventDefault();
         const post = {
             'title': e.target.title.value,
-            'content': e.target.content.value
+            'content': e.target.content.value,
+            'userID': cookies.load( 'user_id' )
         };
-        await axios.post( `${process.env.REACT_APP_HEROKU_URL}/post`, post, {
-            headers: {
-                Authorization: `Bearer ${cookies.load( 'token' )}`
+        await axios.post(
+            `${process.env.REACT_APP_HEROKU_URL}/post`,
+            post, {
+                headers: {
+                    'Authorization': `bearer ${cookies.load('token')}`
+                }
             }
-        } ).then( ( res ) => {
+        ).then( () => {
             fetchData();
-        } ).catch( ( err ) => {
-            console.log( err );
         } );
     };
     
     const editPost = async ( e, id ) => {
         e.preventDefault();
-        let title = e.target.title.value;
-        let content = e.target.content.value;
-        let obj = {
-            title,
-            content
+        const post = {
+            'title': e.target.title.value,
+            'content': e.target.content.value,
+            'userID': cookies.load( 'user_id' )
         };
-        await axios.put( `${process.env.REACT_APP_HEROKU_URL}/post/${id}/${user.user_id}`, obj, {
-            headers: {
-                'Authorization': `Bearer ${cookies.load( 'token' )}`
+        await axios.put(
+            `${process.env.REACT_APP_HEROKU_URL}/post/${id}`,
+            post, {
+                headers: {
+                    'Authorization': `bearer ${cookies.load('token')}`
+                }
             }
+        ).then( () => {
+            props(fetchData);
         } );
-        setEdit( false );
-        fetchData();
+       
     };
 
     const deletePost = async ( id ) => {
-        let confirm = prompt( "Please type delete" );
-        if ( confirm === "delete" ) {
-            await axios.delete( `${process.env.REACT_APP_HEROKU_URL}/post/${id}/${user.user_id}`, {
-                headers: {
-                    'Authorization': `Bearer ${cookies.load( 'token' )}`
+        swal( {
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this post!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            } )
+            .then( async ( willDelete ) => {
+                if ( willDelete ) {
+                    await axios.delete(
+                        `${process.env.REACT_APP_HEROKU_URL}/post/${id}`,
+                        {
+                            headers: {
+                                'Authorization': `bearer ${cookies.load('token')}`
+                            }
+                        }
+                    ).then( () => {
+                        fetchData();
+                    } );
+                    swal( "Poof! Your post has been deleted!", {
+                        icon: "success",
+                    } );
+                } else {
+                    swal( "Your post is safe!" );
                 }
-            } );
-            fetchData();
-        } else deletePost();
+            }
+            );
     };
 
     const addComment = async ( e, postId ) => {

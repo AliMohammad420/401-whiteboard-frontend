@@ -3,7 +3,7 @@ import { useAuth } from "../Context/AuthContext";
 import { useUserData } from "../Context/PostContext";
 
 function AddPostForm () {
-    const { user, clearUser, setIsAuth } = useAuth();
+    const { user, clearUser } = useAuth();
     const { addPost } = useUserData();
     return (
         <>
@@ -24,7 +24,6 @@ function AddPostForm () {
                 </form>
                 <button className="signout" onClick={() => {
                     clearUser();
-                    setIsAuth( false );
                 }}>Sign out {user.username}</button>
             </div>
         </>
