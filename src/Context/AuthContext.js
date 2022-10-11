@@ -25,6 +25,7 @@ const AuthContextProvider = ( props ) => {
         cookies.remove( "role" );
         setIsAuth( false );
     };
+    
     const handleSignIn = async ( e ) => {
         e.preventDefault();
         const userInput = {
