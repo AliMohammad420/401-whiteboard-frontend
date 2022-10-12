@@ -1,46 +1,34 @@
-export const actionTypes = {
-    LOGIN: 'LOGIN_SUCCESS',
-    LOGIN_ERROR: 'LOGIN_ERROR',
-    LOGOUT: 'LOGOUT_SUCCESS',
-    LOGOUT_ERROR: 'LOGOUT_ERROR',
-    REGISTER: 'REGISTER_SUCCESS',
-    REGISTER_ERROR: 'REGISTER_ERROR'
-}
+import { actionType } from '../config/constant';
 
-    const authReducer = ( state, action ) => {
+export const authReducer = (state, action) => {
     switch (action.type) {
-        case actionTypes.LOGIN:
-            console.log('login success');
+        case actionType.LOGIN_REQUEST:
             return {
                 ...state,
-                authError: null
-            }
-        case actionTypes.LOGIN_ERROR:
-            console.log('login error');
+                loading: true,
+            };
+        case actionType.LOGIN_SUCCESS:
             return {
                 ...state,
-                authError: 'Login failed'
-            }
-        case actionTypes.LOGOUT:
-            console.log('logout success');
-            return state;
-        case actionTypes.LOGOUT_ERROR:
-            console.log('logout error');
-            return state;
-        case actionTypes.REGISTER:
-            console.log('register success');
+                loading: false,
+                user: action.payload,
+                token: action.payload.token,
+                isAuth: true,
+            };
+        case actionType.LOGIN_FAIL:
             return {
                 ...state,
-                authError: null
-            }
-        case actionTypes.REGISTER_ERROR:
-            console.log('register error');
+                loading: false,
+                error: action.payload,
+            };
+        case actionType.LOGOUT:
             return {
                 ...state,
-                authError: action.err.message
-            }
+                user: null,
+                token: null,
+                isAuth: false,
+            };
         default:
-            return state;
+            throw new Error(`Unhandled action type: ${action.type}`);
     }
 }
-
