@@ -94,7 +94,7 @@ const AuthContextProvider = ( props ) => {
     };
 
     const canDo = ( action ) => {
-        if ( user.role === "admin" ) {
+        if ( user.role === "admin" && user.role === "user" ) {
             return true;
         } else {
             return user.capabilities.includes( action );
