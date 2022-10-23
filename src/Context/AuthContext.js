@@ -93,13 +93,13 @@ const AuthContextProvider = ( props ) => {
         }
     };
 
-    const canDo = ( action ) => {
-        if ( user.role === "admin" ) {
+    const canDo = ( role ) => {
+        if ( user.role === role ) {
             return true;
         } else {
-            return user.capabilities.includes( action );
+            return false;
         }
-      }
+    };
     
     const state = {
         isAuth,
