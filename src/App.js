@@ -16,6 +16,8 @@ function App() {
 
   
   return (
+
+    
     <div className="App">
       <When condition={isAuth}>
         <AddPostForm/>

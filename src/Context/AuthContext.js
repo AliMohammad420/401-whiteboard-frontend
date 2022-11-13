@@ -93,13 +93,20 @@ const AuthContextProvider = ( props ) => {
         }
     };
 
-    const canDo = ( role ) => {
-        if ( user.role === role ) {
+    const canDo = ( action ) => {
+        if ( user.role === 'admin' ) {
+            return true;
+        } else if ( user.role === 'editor' && action === 'create' ) {
+            return true;
+        } else if ( user.role === 'editor' && action === 'update' ) {
+            return true;
+        } else if ( user.role === 'editor' && action === 'delete' ) {
             return true;
         } else {
             return false;
         }
     };
+    
     
     const state = {
         isAuth,
