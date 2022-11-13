@@ -8,7 +8,6 @@ import {
   Button,
   FormControl,
   FormLabel,
-  Switch,
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
@@ -17,7 +16,6 @@ import {
 
 function Signin () {
     const { handleSignIn, setSignup } = useAuth();
-    const { toggleColorMode } = useColorMode();
     const formBackground = useColorModeValue('gray.100', 'gray.700');
 
    
@@ -71,6 +69,8 @@ function Signin () {
                     onClick={() => setSignup(true)}>
                     Sign up
                 </Button>
+                
+
                 
             </Flex>
         </Flex>
