@@ -8,7 +8,6 @@ import {
   Button,
   FormControl,
   FormLabel,
-  Switch,
   useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
@@ -17,7 +16,6 @@ import { Select } from '@chakra-ui/react'
 
 function Signup () {
      const { handleSignUp, setSignup } = useAuth();
-     const { toggleColorMode } = useColorMode();
     const formBackground = useColorModeValue('gray.100', 'gray.700');
    
     return (
@@ -25,7 +23,7 @@ function Signup () {
             minH={'100vh'}
             align={'center'}
             justify={'center'}
-            bg={toggleColorMode('gray.50', 'gray.800')}
+            bg={useColorModeValue('gray.50', 'gray.800')}
         >
             <Flex
                 direction={'column'}
