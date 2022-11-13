@@ -6,10 +6,13 @@ import Signin from './components/Signin';
 import cookies from 'react-cookies';
 import AuthContextProvider from './Context/AuthContext';
 import UserDataContextProvider from './Context/PostContext';
+import { ChakraProvider } from '@chakra-ui/react';
+
 
 
 const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
 root.render(
+  <ChakraProvider>
   <AuthContextProvider>
     <UserDataContextProvider>
     <BrowserRouter>
@@ -20,4 +23,5 @@ root.render(
     </BrowserRouter>
     </UserDataContextProvider>
   </AuthContextProvider>
+  </ChakraProvider>
 );

@@ -50,21 +50,34 @@ const PostContextProvider = ( props ) => {
     
     const editPost = async ( e, id ) => {
         e.preventDefault();
-        const post = {
-            'title': e.target.title.value,
-            'content': e.target.content.value,
-            'userID': cookies.load( 'user_id' )
-        };
-        await axios.put(
-            `${process.env.REACT_APP_HEROKU_URL}/post/${id}`,
-            post, {
-                headers: {
-                    'Authorization': `bearer ${cookies.load('token')}`
+        swal( {
+            title: "Do you wanna edit this post?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        } )
+            .then( async ( willedit ) => {
+                if ( willedit ) {
+                    const post = {
+                        'title': e.target.title.value,
+                        'content': e.target.content.value,
+                        'userID': cookies.load( 'user_id' )
+                    };
+                    await axios.put(
+                        `${process.env.REACT_APP_HEROKU_URL}/post/${id}`,
+                        post, {
+                            headers: {
+                                'Authorization': `bearer ${cookies.load('token')}`
+                            }
+                        }
+                    ).then( () => {
+                        fetchData();
+                    } );
+                } else {
+                    swal( "Your post is safe!" );
                 }
             }
-        ).then( () => {
-            props(fetchData);
-        } );
+            );
        
     };
 
