@@ -7,7 +7,7 @@ import {
   Button,
   FormControl,
   FormLabel,
-  useColorModeValue,
+  useColorModeValue
 } from '@chakra-ui/react';
 import { Select } from '@chakra-ui/react'
 
