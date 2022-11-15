@@ -3,7 +3,7 @@ import AddCommentForm from "./Add-comment-form";
 import React from 'react';
 import { useAuth } from "../Context/AuthContext";
 import { useUserData } from "../Context/PostContext";
-import { Stack, HStack, VStack } from "@chakra-ui/react"
+import { Stack, HStack, VStack, Button, Input, Textarea, Box} from "@chakra-ui/react"
 
 function Post () {
     const { canDo } = useAuth();
@@ -18,25 +18,50 @@ function Post () {
         <>
             {post ? post.map( ( post, idx ) => {
                 return (
-                    <Stack key={idx} className="post">
+                    <Stack key={idx} className="post" direction='column'>
                         
                         <HStack>
-                            <div className="can">
-                            {canDo( 'update', post.user_id ) && <button onClick={() => setEdit( true )}>Edit</button>}
-                            {canDo( 'delete', post.user_id ) && <button onClick={() => deletePost( post.id )}>Delete</button>}
-                            </div>
+                            {canDo( 'update', post.user_id ) && <Button onClick={() => setEdit( true )}>Edit</Button>}
+                            {canDo( 'delete', post.user_id ) && <Button onClick={() => deletePost( post.id )}>Delete</Button>}
                             {edit && <form className= "edit" onSubmit={( e ) => editPost( e, post.id )}>
-                                <input type="text" name="title" defaultValue={post.title} />
-                                <textarea name="content" defaultValue={post.content}></textarea>
-                                <input type="submit"  />
+                                <div className="exit">
+                                <button onClick={() => setEdit( false )}>X</button>
+                                </div>
+                                <Input type="text" name="title" defaultValue={post.title} />
+                                <Textarea name="content" defaultValue={post.content}></Textarea> 
+                                
+                                <Input type="submit"  />
                             </form>}
                         </HStack>
-                        <h3>{post.title}</h3>
-                        <p>{post.content}</p>
-                        <h3> post by {post.user.username}</h3> 
+                        <Box
+                            w="auto%"
+                            h="auto%"
+                            bg="gray.100"
+                            p={4}
+                            color="black"
+                            fontSize="l"
+                            fontWeight="semibold"
+                            lineHeight="short"
+                            textAlign="center"
+                            >
+                            <h1>{post.title}</h1>
+                            <p>{post.content}</p>
+                            <h3> post by {post.user.username}</h3> 
+                            </Box>
 
                        
                         <VStack>
+                            <Box
+                            w="auto%"
+                            h="auto%"
+                            bg="gray.100"
+                            p={4}
+                            color="black"
+                            fontSize="l"
+                            fontWeight="semibold"
+                            lineHeight="short"
+                            textAlign="center"
+                            >
                         {post.comments &&
                             <h2>Comments</h2>
                         }
@@ -48,8 +73,9 @@ function Post () {
                                     </div>
                                 );
                             } )}
-                            <AddCommentForm postId={post.id} />
-                            
+                           
+                            </Box>
+                             <AddCommentForm postId={post.id} />
 
                         </VStack>
                     </Stack>

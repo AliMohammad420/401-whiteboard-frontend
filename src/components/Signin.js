@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import React from 'react';
 import {
@@ -8,7 +7,6 @@ import {
   Button,
   FormControl,
   FormLabel,
-  useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
 

@@ -1,20 +1,20 @@
 import React from 'react';
-import { useAuth } from "../Context/AuthContext";
 import { useUserData } from "../Context/PostContext";
-import { Stack, HStack, VStack } from "@chakra-ui/react"
+import { Stack, Button, VStack, Textarea } from "@chakra-ui/react"
 
 
 function AddCommentForm ( props ) {
     const { addComment } = useUserData();
     return (
         <>
-            <Stack className="add-comment-form">
+            <Stack className="add-comment-form" direction='column'>
                 <form onSubmit={( e ) => addComment( e, props.postId )}>
                     <VStack>
-                        <label>Comment</label>
-                        <textarea placeholder="Add Comment" name="content"></textarea>
-                        <input type="submit" />
+                        
+                        <Textarea placeholder="Comment" name="content"></Textarea>
+                        <Button type="submit">Add Comment</Button>
                     </VStack>
+                       
                 </form>
             </Stack>
 
