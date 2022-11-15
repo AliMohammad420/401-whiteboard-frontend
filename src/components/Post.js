@@ -3,7 +3,8 @@ import AddCommentForm from "./Add-comment-form";
 import React from 'react';
 import { useAuth } from "../Context/AuthContext";
 import { useUserData } from "../Context/PostContext";
-import { Stack, HStack, VStack, Button, Input, Textarea, Box} from "@chakra-ui/react"
+import { Stack, HStack, VStack, Button, Input, Textarea, Box, useColorMode} from "@chakra-ui/react"
+
 
 function Post () {
     const { canDo } = useAuth();
@@ -16,6 +17,7 @@ function Post () {
     } );
     return (
         <>
+        
             {post ? post.map( ( post, idx ) => {
                 return (
                     <Stack key={idx} className="post" direction='column'>
@@ -36,7 +38,7 @@ function Post () {
                         <Box
                             w="auto%"
                             h="auto%"
-                            bg="gray.100"
+                            bg="blue.100"
                             p={4}
                             color="black"
                             fontSize="l"
@@ -54,13 +56,14 @@ function Post () {
                             <Box
                             w="auto%"
                             h="auto%"
-                            bg="gray.100"
+                            bg="blue.100"
                             p={4}
                             color="black"
                             fontSize="l"
                             fontWeight="semibold"
                             lineHeight="short"
                             textAlign="center"
+                            
                             >
                         {post.comments &&
                             <h2>Comments</h2>
@@ -78,9 +81,10 @@ function Post () {
                              <AddCommentForm postId={post.id} />
 
                         </VStack>
-                    </Stack>
+                             </Stack>
                 );
             } ) : <h2>Loading...</h2>}
+            
         </>
     );
 }
