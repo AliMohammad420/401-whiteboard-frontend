@@ -7,12 +7,14 @@ import cookies from 'react-cookies';
 import AuthContextProvider from './Context/AuthContext';
 import UserDataContextProvider from './Context/PostContext';
 import { ChakraProvider } from '@chakra-ui/react';
+import { myNewTheme } from "../src/theme/theme";
+
 
 
 
 const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
 root.render(
-  <ChakraProvider>
+  <ChakraProvider theme={myNewTheme}>
   <AuthContextProvider>
     <UserDataContextProvider>
     <BrowserRouter>
