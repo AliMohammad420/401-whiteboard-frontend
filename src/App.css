@@ -28,7 +28,6 @@
   align-items: center;
   justify-content: center;
   height: 75%;
-  background-color: #f5f5f5;
   border-radius: 10px;
   padding: 20px;
 }
@@ -40,7 +39,6 @@
   justify-content: center;
   margin: 0 auto;
   height: 100%;
-  background-color: #f5f5f5;
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -103,7 +101,6 @@ div label, input{
   padding: 0.9rem 0.7rem;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
   font-size: 17px;
-  color: #4A4A4A;
   text-indent: 40px;
 }
 
@@ -187,7 +184,6 @@ margin-top: 5%;
   justify-content: center;
   margin: 0 auto;
   height: 100%;
-  background-color: #f5f5f5;
   border-radius: 5px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);

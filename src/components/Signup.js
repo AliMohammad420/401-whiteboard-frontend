@@ -7,7 +7,9 @@ import {
   Button,
   FormControl,
   FormLabel,
-  useColorModeValue
+  useColorModeValue,
+    useColorMode,
+    Switch,
 } from '@chakra-ui/react';
 import { Select } from '@chakra-ui/react'
 
@@ -15,6 +17,8 @@ import { Select } from '@chakra-ui/react'
 function Signup () {
      const { handleSignUp, setSignup } = useAuth();
     const formBackground = useColorModeValue('gray.100', 'gray.700', 'light');
+    const { toggleColorMode } = useColorMode();
+
    
     return (
         <Flex
@@ -104,6 +108,18 @@ function Signup () {
                 >
                     Cancel
                 </Button>
+
+                <FormControl display="flex" alignItems="center">
+     <FormLabel htmlFor="dark_mode" mb="0">
+      Enable Dark Mode?
+     </FormLabel>
+     <Switch
+      id="dark_mode"
+      colorScheme="teal"
+      size="lg"
+      onChange={toggleColorMode}
+     />
+    </FormControl>
         
             </Flex>
         </Flex>

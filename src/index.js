@@ -16,7 +16,6 @@ const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
 root.render(
  
   <ChakraProvider theme={myNewTheme}>
-  <LightMode>
   <AuthContextProvider>
     <UserDataContextProvider>
     <BrowserRouter>
@@ -27,6 +26,5 @@ root.render(
     </BrowserRouter>
     </UserDataContextProvider>
   </AuthContextProvider>
-  </LightMode>
   </ChakraProvider>
 );
