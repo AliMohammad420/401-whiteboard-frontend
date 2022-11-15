@@ -6,7 +6,7 @@ import Signin from './components/Signin';
 import cookies from 'react-cookies';
 import AuthContextProvider from './Context/AuthContext';
 import UserDataContextProvider from './Context/PostContext';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, DarkMode, LightMode } from '@chakra-ui/react';
 import { myNewTheme } from "../src/theme/theme";
 
 
@@ -14,7 +14,9 @@ import { myNewTheme } from "../src/theme/theme";
 
 const root = ReactDOM.createRoot( document.getElementById( 'root' ) );
 root.render(
+ 
   <ChakraProvider theme={myNewTheme}>
+  <LightMode>
   <AuthContextProvider>
     <UserDataContextProvider>
     <BrowserRouter>
@@ -25,5 +27,6 @@ root.render(
     </BrowserRouter>
     </UserDataContextProvider>
   </AuthContextProvider>
+  </LightMode>
   </ChakraProvider>
 );
