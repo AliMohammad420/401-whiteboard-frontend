@@ -8,14 +8,15 @@ import {
   FormControl,
   FormLabel,
   useColorModeValue,
+
 } from '@chakra-ui/react';
 
 
 
 function Signin () {
     const { handleSignIn, setSignup } = useAuth();
-    const formBackground = useColorModeValue('gray.100', 'gray.700');
-
+    const formBackground = useColorModeValue('gray.100', 'gray.700', 'light');
+    
    
 
     return (
@@ -23,7 +24,7 @@ function Signin () {
             minH={'100vh'}
             align={'center'}
             justify={'center'}
-            bg={useColorModeValue('gray.50', 'gray.800')}>
+            bg={useColorModeValue('gray.50', 'gray.800', 'light')}>
             <Flex
                 direction={'column'}
                 rounded={'lg'}

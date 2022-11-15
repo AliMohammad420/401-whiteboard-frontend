@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import React from 'react';
 import {
@@ -8,7 +7,6 @@ import {
   Button,
   FormControl,
   FormLabel,
-  useColorMode,
   useColorModeValue,
 } from '@chakra-ui/react';
 import { Select } from '@chakra-ui/react'
@@ -16,14 +14,14 @@ import { Select } from '@chakra-ui/react'
 
 function Signup () {
      const { handleSignUp, setSignup } = useAuth();
-    const formBackground = useColorModeValue('gray.100', 'gray.700');
+    const formBackground = useColorModeValue('gray.100', 'gray.700', 'light');
    
     return (
         <Flex
             minH={'100vh'}
             align={'center'}
             justify={'center'}
-            bg={useColorModeValue('gray.50', 'gray.800')}
+            bg={useColorModeValue('gray.50', 'gray.800', 'light')}
         >
             <Flex
                 direction={'column'}
