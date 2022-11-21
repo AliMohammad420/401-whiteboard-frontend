@@ -5,3 +5,5 @@ export const actionType = {
     LOGOUT: 'LOGOUT',
     GET_POSTS: 'GET_POSTS',
 };
+
+
