@@ -1,7 +1,18 @@
 import axios from "axios";
 import { actionType } from "../config/constant";
+import { getPosts } from "../redux/postSlicer";
 
-export const getPost = (dispatch) => {
+export const post = () => async (dispatch) => {
+  try {
+    const res = await axios.get(`${process.env.REACT_APP_HEROKU_URL}/post`)
+    dispatch(getPosts(res.data));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+/* export const getPost = (dispatch) => {
  axios
   .get(`${process.env.REACT_APP_HEROKU_URL}/post`)
   .then((res) => {
@@ -11,3 +22,4 @@ export const getPost = (dispatch) => {
    dispatch({ type: actionType.POST_ERROR, payload: err });
   });
 };
+ */

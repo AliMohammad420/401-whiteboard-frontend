@@ -11,8 +11,8 @@ import {
  Input,
  Textarea,
  Box,
- useColorMode,
 } from "@chakra-ui/react";
+
 
 function Post() {
  const { canDo } = useAuth();
